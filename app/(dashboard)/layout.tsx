@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DashboardLayout = ({
-    children
+     children
  }: {
     children: React.ReactNode
 }) => {
