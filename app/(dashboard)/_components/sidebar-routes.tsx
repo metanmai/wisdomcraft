@@ -21,7 +21,7 @@ const SidebarRoutes = () => {
 	const routes = guestRoutes;
 
 	return (
-		<div className={`w-full`}>
+		<div className={``}>
 			{routes.map((route) => (
 				<SidebarItem
 					key={route.href}

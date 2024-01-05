@@ -24,17 +24,17 @@ const SidebarItem: React.FC<SidebarItemProps> = ({icon: Icon, label, href}) => {
 	}
 
 	return (
-		<Button
+		<button
 			onClick={onClick}
 			type={`button`}
 			className={cn(
-				"flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-				isActive && "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-200/20"
+				"flex w-full items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+				isActive && "text-sky-700 bg-sky-300/20 hover:bg-sky-300/20 hover:text-sky-700"
 			)}
-		>
+			>
 			<div className={`flex items-center gap-x-2 py-4`}>
 				<Icon
-					size={22}
+					size={20}
 					className={cn(
 						"text-slate-500",
 						isActive && "text-sky-700"
@@ -42,7 +42,13 @@ const SidebarItem: React.FC<SidebarItemProps> = ({icon: Icon, label, href}) => {
 				/>
 				{label}
 			</div>
-		</Button>
+			<div
+				className={cn(
+					"ml-auto opacity-0 border-4 border-sky-700 transition-all h-full",
+					isActive && "opacity-100"
+				)}
+			/>
+		</button>
 	);
 };
 
