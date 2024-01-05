@@ -18,11 +18,11 @@ const guestRoutes = [
 ]
 
 const SidebarRoutes = () => {
-	const routes = guestRoutes;
+	// const routes = guestRoutes;
 
 	return (
 		<div className={``}>
-			{routes.map((route) => (
+			{guestRoutes.map((route) => (
 				<SidebarItem
 					key={route.href}
 					icon={route.icon}

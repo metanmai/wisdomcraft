@@ -1,7 +1,6 @@
 import React from 'react';
 import {LucideIcon} from "lucide-react";
 import {usePathname, useRouter} from "next/navigation";
-import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 
 interface SidebarItemProps {
@@ -42,12 +41,12 @@ const SidebarItem: React.FC<SidebarItemProps> = ({icon: Icon, label, href}) => {
 				/>
 				{label}
 			</div>
-			<div
-				className={cn(
-					"ml-auto opacity-0 border-4 border-sky-700 transition-all h-full",
-					isActive && "opacity-100"
-				)}
-			/>
+			{/*<div*/}
+			{/*	className={cn(*/}
+			{/*		"ml-auto opacity-0 border-4 border-sky-700 transition-all h-full",*/}
+			{/*		isActive && "opacity-100"*/}
+			{/*	)}*/}
+			{/*/>*/}
 		</button>
 	);
 };
