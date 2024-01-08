@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ClerkProvider } from "@clerk/nextjs";
 import React from "react";
+import ToasterProvider from "@/components/providers/toaster-provider";
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
       <ClerkProvider>
         <html lang="en">
+        <ToasterProvider/>
           <body>{children}</body>
         </html>
       </ClerkProvider>
