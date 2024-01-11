@@ -5,9 +5,7 @@ import {Toaster} from "react-hot-toast";
 
 const ToasterProvider = () => {
 	return (
-		<div>
-			return <Toaster/>
-		</div>
+		<Toaster/>
 	);
 };
 

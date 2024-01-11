@@ -12,7 +12,7 @@ import axios from "axios";
 import {useRouter} from "next/navigation";
 import {toast} from "react-hot-toast/headless";
 
-
+// Zod is basically a schema validator. It's used to validate the form data.
 const formSchema = z.object({
 	title: z.string().min(1, {
 		message: "Title is required"
@@ -22,6 +22,8 @@ const formSchema = z.object({
 const CreatePage = () => {
 	const router = useRouter();
 
+	// UseForm is a hook that allows us to create a form with validation.
+	// ZodResolver is a hook that allows us to use Zod with the form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -35,11 +37,13 @@ const CreatePage = () => {
 		try {
 			const response = await axios.post(`/api/course`, values);
 			router.push(`/teacher/courses/${response.data.id}`);
+			toast.success("Course created successfully.");
 		}
 
 		catch (error) {
 			toast.error(`Something went wrong.`);
 		}
+		// console.log(values);
 	}
 
 	return (
@@ -50,7 +54,8 @@ const CreatePage = () => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className={`flex flex-col w-full mt-6 space-y-4`}
+					// className={`flex flex-col w-full mt-6 space-y-4`}
+					className={`space-y-8 mt-8`}
 				>
 					<FormField
 						control={form.control}
@@ -84,13 +89,13 @@ const CreatePage = () => {
 							>
 								Cancel
 							</Button>
-							<Button
-								type={`submit`}
-								disabled={!isValid || isSubmitting}
-							>
-								Continue
-							</Button>
 						</Link>
+						<Button
+							type={`submit`}
+							disabled={!isValid || isSubmitting}
+						>
+							Continue
+						</Button>
 					</div>
 				</form>
 			</Form>
