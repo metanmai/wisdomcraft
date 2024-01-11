@@ -10,7 +10,7 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import axios from "axios";
 import {useRouter} from "next/navigation";
-import {toast} from "react-hot-toast/headless";
+import {toast} from "sonner";
 
 // Zod is basically a schema validator. It's used to validate the form data.
 const formSchema = z.object({
@@ -36,14 +36,14 @@ const CreatePage = () => {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const response = await axios.post(`/api/course`, values);
+			// router.push(`/teacher/courses/`);
 			router.push(`/teacher/courses/${response.data.id}`);
-			toast.success("Course created successfully.");
+			toast.success(`Course created successfully.`);
 		}
 
 		catch (error) {
 			toast.error(`Something went wrong.`);
 		}
-		// console.log(values);
 	}
 
 	return (
