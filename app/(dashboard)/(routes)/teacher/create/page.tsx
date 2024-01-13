@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as z from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -33,6 +33,14 @@ const CreatePage = () => {
 
 	const {isSubmitting, isValid} = form.formState;
 
+	const inputRef = useRef<HTMLInputElement | null>(null);
+
+	useEffect(() => {
+		if(inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, []);
+
 	const handleSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const response = await axios.post(`/api/courses`, values);
@@ -59,8 +67,7 @@ const CreatePage = () => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(handleSubmit)}
-					className={`flex flex-col w-full mt-6 space-y-4`}
-					// className={`space-y-8 mt-8`}
+					className={`w-full space-y-4 mt-8`}
 				>
 					<FormField
 						control={form.control}
@@ -77,6 +84,7 @@ const CreatePage = () => {
 										placeholder={`My Awesome Course`}
 										disabled={isSubmitting}
 										onKeyDown={handleKeyDown}
+										ref={inputRef}
 									/>
 								</FormControl>
 								<FormDescription>
