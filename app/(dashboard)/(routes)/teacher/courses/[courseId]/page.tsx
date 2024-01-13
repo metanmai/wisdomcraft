@@ -24,7 +24,8 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 		course.description,
 		course.imageUrl,
 		course.price,
-		course.categoryId];
+		course.categoryId
+	];
 
 	const totalFields = requiredFields.length;
 	const completedFields = requiredFields.filter(Boolean).length;

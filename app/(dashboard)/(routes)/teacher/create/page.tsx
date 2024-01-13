@@ -33,7 +33,7 @@ const CreatePage = () => {
 
 	const {isSubmitting, isValid} = form.formState;
 
-	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+	const handleSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const response = await axios.post(`/api/courses`, values);
 			router.push(`/teacher/courses/${response.data.id}`);
@@ -45,16 +45,22 @@ const CreatePage = () => {
 		}
 	}
 
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter") {
+			form.handleSubmit(handleSubmit)();
+		}
+	};
+
 	return (
 		<div className={`max-w-5xl mx-auto flex flex-col md:items-center md:justify-center h-full p-6`}>
-			<h1 className={`text-2xl`}>
-				Name your course.
+			<h1 className={`text-2xl font-medium`}>
+				Create a new course.
 			</h1>
 			<Form {...form}>
 				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					// className={`flex flex-col w-full mt-6 space-y-4`}
-					className={`space-y-8 mt-8`}
+					onSubmit={form.handleSubmit(handleSubmit)}
+					className={`flex flex-col w-full mt-6 space-y-4`}
+					// className={`space-y-8 mt-8`}
 				>
 					<FormField
 						control={form.control}
@@ -70,6 +76,7 @@ const CreatePage = () => {
 										id={`title`}
 										placeholder={`My Awesome Course`}
 										disabled={isSubmitting}
+										onKeyDown={handleKeyDown}
 									/>
 								</FormControl>
 								<FormDescription>
