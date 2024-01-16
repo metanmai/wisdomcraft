@@ -41,12 +41,6 @@ const SidebarItem: React.FC<SidebarItemProps> = ({icon: Icon, label, href}) => {
 				/>
 				{label}
 			</div>
-			{/*<div*/}
-			{/*	className={cn(*/}
-			{/*		"ml-auto opacity-0 border-4 border-sky-700 transition-all h-full",*/}
-			{/*		isActive && "opacity-100"*/}
-			{/*	)}*/}
-			{/*/>*/}
 		</button>
 	);
 };

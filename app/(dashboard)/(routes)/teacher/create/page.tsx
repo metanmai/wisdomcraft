@@ -16,12 +16,11 @@ import {toast} from "sonner";
 const formSchema = z.object({
 	title: z.string().min(1, {
 		message: "Title is required"
-	}),
+	})
 });
 
 const CreatePage = () => {
 	const router = useRouter();
-
 	// UseForm is a hook that allows us to create a form with validation.
 	// ZodResolver is a hook that allows us to use Zod with the form.
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -48,8 +47,8 @@ const CreatePage = () => {
 			toast.success(`Course created successfully.`);
 		}
 
-		catch (error) {
-			toast.error(`Something went wrong.`);
+		catch(error) {
+			toast.error(`Something went wrong.${error}`);
 		}
 	}
 
