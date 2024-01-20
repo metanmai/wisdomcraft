@@ -12,18 +12,18 @@ import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
 import {Textarea} from "@/components/ui/textarea";
+import {Course} from "@prisma/client";
 
 interface DescriptionFormProps {
-	initialData: {
-		description: string;
-	};
+	initialData: Course
 	courseId: string;
 }
 
 const formSchema = z.object({
-	description: z.string()
+	description: z.string().min(1, {
+		message: "Description is required"
+	})
 });
-
 
 const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 	const router = useRouter();
@@ -32,7 +32,9 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: initialData,
+		defaultValues: {
+			description: initialData?.description || ""
+		}
 	});
 
 	const {isSubmitting, isValid} = form.formState;
@@ -70,12 +72,10 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 				}
 			</div>
 			{!isEditing &&
-				<p className={`text-sm mt-2 p-2`}>
-					{initialData.description === `` ?
-						<h1 className={`text-gray-400 italic`}> No description provided. </h1> :
-						initialData.description
-					}
-				</p>
+				(initialData.description === `` ?
+					<h1 className={`text-gray-400 italic`}> No description provided. </h1> :
+					<h1 className={`font-custom text-md p-4`}> {initialData.description} </h1>
+				)
 			}
 
 			{isEditing &&
