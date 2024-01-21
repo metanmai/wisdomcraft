@@ -53,7 +53,7 @@ const CreatePage = () => {
 	}
 
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === "Enter") {
+		if(event.key === "Enter") {
 			form.handleSubmit(handleSubmit)();
 		}
 	};

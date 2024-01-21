@@ -16,11 +16,11 @@ model Course {
   userId String
   title String @db.Text
 
-  description String? @db.Text
-  imageUrl String? @db.Text
-  price Float?
+  description String? @db.Text @default("")
+  imageUrl String? @db.Text @default("")
+  price Float? @default(0)
   isPublished Boolean @default(false)
-  categoryId String?
+  categoryId String? @default("")
   category Category? @relation(fields: [categoryId], references: [id])
   attachments Attachment[]
 
