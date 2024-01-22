@@ -13,7 +13,7 @@ interface FileUploadProps {
 const FileUpload = ({onChange, endpoint}: FileUploadProps) => {
 	return (
 		<UploadDropzone
-			className={`bg-slate-300 ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300`}
+			className={`bg-slate-200 ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300`}
 			endpoint={endpoint}
 			onClientUploadComplete={(res) => {
 				onChange(res?.[0].url);

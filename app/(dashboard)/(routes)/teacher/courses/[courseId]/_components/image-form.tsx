@@ -51,7 +51,7 @@ const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 			router.refresh();
 		}
 
-		catch (error) {
+		catch(error) {
 			toast.error(`Something went wrong.`);
 		}
 	}
@@ -90,7 +90,9 @@ const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 			}
 
 			{isEditing &&
-				<>
+				<div>
+					{/*Make sure to use ONLY uploadthing v5.7.4 and @uploadthing/react v5.7.0
+					because it was not working in production with the latest versions.*/}
 					<FileUpload
 						onChange={(url) => {
 							if(url) {
@@ -102,7 +104,7 @@ const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 					<div className={`pt-4 italic text-[12px] text-slate-400`}>
 						Recommended aspect ratio: 16:9
 					</div>
-				</>
+				</div>
 			}
 		</div>
 	);

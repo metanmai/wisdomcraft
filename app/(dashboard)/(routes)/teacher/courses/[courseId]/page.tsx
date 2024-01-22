@@ -7,10 +7,23 @@ import {LayoutDashboardIcon} from "lucide-react";
 import TitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/title-form";
 import DescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/description-form";
 import ImageForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/image-form";
+import CategoryForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/category-form";
+
+// const categories =
 
 const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 
 	const {userId} = auth();
+
+	const categories = await db.category.findMany({
+		orderBy: {
+			name: "asc"
+		}
+	});
+
+	const options = categories.map((category) => ({ label: category.name, value: category.id }));
+
+	console.log(options);
 
 	const course = await db.course.findUnique({
 		where: {
@@ -54,6 +67,7 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 					<TitleForm initialData={course} courseId={course.id}/>
 					<DescriptionForm initialData={course} courseId={course.id}/>
 					<ImageForm initialData={course} courseId={course.id}/>
+					<CategoryForm initialData={course} courseId={course.id} options={options} />
 				</div>
 			</div>
 		</div>

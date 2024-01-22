@@ -17,9 +17,7 @@ export async function PATCH(req: Request, {params}: {params: {courseId: string}}
 				id: params.courseId,
 				userId
             },
-			data: {
-				...values
-			}
+			data: values
 		});
 
 		return new NextResponse(JSON.stringify(course), {status: 200});

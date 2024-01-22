@@ -69,7 +69,7 @@ const TitleForm = ({initialData, courseId}: TitleFormProps) => {
 						<CloseIcon/>
 					</Button> :
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(false)}>
-						<Pencil/>
+						<Pencil className={``}/>
 					</Button>
 				}
 			</div>
