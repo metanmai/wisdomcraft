@@ -55,11 +55,7 @@ async function main() {
 			]
 		})
 
-		const res = await db.category.findUnique({
-			where: { name: "Computer Science" }
-		});
-
-		console.log(`$Seeding completed successfully`);
+		console.log(`Seeding completed successfully`);
 	}
 
 	catch(err) {

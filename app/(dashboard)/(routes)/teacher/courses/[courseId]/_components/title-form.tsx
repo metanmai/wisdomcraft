@@ -4,9 +4,8 @@ import React, {useState} from 'react';
 import * as z from 'zod';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {	Pencil} from "lucide-react";
+import {X, Pencil} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {toast} from "sonner";
@@ -66,10 +65,11 @@ const TitleForm = ({initialData, courseId}: TitleFormProps) => {
 
 				{isEditing ?
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(true)}>
-						<CloseIcon/>
-					</Button> :
+						<X className={`text-rose-400`}/>
+					</Button>
+					:
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(false)}>
-						<Pencil className={``}/>
+						<Pencil className={`text-rose-400`}/>
 					</Button>
 				}
 			</div>

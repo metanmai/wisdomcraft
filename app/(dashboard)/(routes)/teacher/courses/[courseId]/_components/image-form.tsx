@@ -4,9 +4,8 @@ import React, {useState} from 'react';
 import * as z from 'zod';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {ImageIcon, Pencil, PlusCircle} from "lucide-react";
+import {ImageIcon, Pencil, PlusCircle, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
@@ -63,11 +62,11 @@ const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 
 				{isEditing ?
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(true)}>
-						<CloseIcon/>
+						<X className={`text-rose-400`}/>
 					</Button> :
 
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(false)}>
-						{initialData.imageUrl === `` ? <PlusCircle/> : <Pencil/>}
+						{initialData.imageUrl === `` ? <PlusCircle className={`text-rose-400`}/> : <Pencil className={`text-rose-400`}/>}
 					</Button>
 				}
 			</div>

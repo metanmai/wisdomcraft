@@ -36,7 +36,6 @@ export const Combobox = ({options, value, courseId}: ComboboxProps) => {
 
   const onChange = async (value: string, courseId: string) => {
     try {
-        console.log(`Value: ${value}, courseId: ${courseId}`);
         await axios.patch(`/api/courses/${courseId}`, {categoryId: value});
         toast.success(`Category updated successfully.`);
         console.log(`Category updated successfully.`);
@@ -53,11 +52,8 @@ export const Combobox = ({options, value, courseId}: ComboboxProps) => {
     if(sourceRef.current) {
       const sourceWidth = sourceRef.current.getBoundingClientRect().width;
       if(targetRef.current) {
-        console.log(`Here`);
         targetRef.current.style.width = `${sourceWidth}px`;
       }
-
-      console.log(sourceWidth);
     }
   };
 
@@ -82,7 +78,7 @@ export const Combobox = ({options, value, courseId}: ComboboxProps) => {
           {value
             ? options.find((option) => option.value === value)?.label
             : "Select option..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-100"/>
+          <ChevronsUpDown className="text-rose-500 ml-2 h-4 w-4 shrink-0 opacity-100"/>
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -105,7 +101,7 @@ export const Combobox = ({options, value, courseId}: ComboboxProps) => {
               >
                 <Check
                   className={cn(
-                    "mr-2 h-4 w-4",
+                    "text-rose-500 mr-2 h-4 w-4",
                     value === option.value ? "opacity-100" : "opacity-0"
                   )}
                 />

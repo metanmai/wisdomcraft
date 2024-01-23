@@ -4,25 +4,34 @@ import React, {useState} from 'react';
 import * as z from 'zod';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Pencil, PlusCircle, X} from "lucide-react";
+import {Pencil, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
-import {Textarea} from "@/components/ui/textarea";
 import {Course} from "@prisma/client";
+import {Input} from "@/components/ui/input";
+import {formatPrice} from "@/lib/format";
 
-interface DescriptionFormProps {
+interface PriceFormProps {
 	initialData: Course;
 	courseId: string;
 }
 
 const formSchema = z.object({
-	description: z.string()
+	price: z
+	.coerce.number()
+	.refine(value => {
+		const decimalCount = (value.toString().split('.')[1] || '').length;
+		return decimalCount <= 2;
+	},
+	{
+		message: "Price can have a maximum of two decimal places."
+	})
 });
 
-const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
+const PriceForm = ({initialData, courseId}: PriceFormProps) => {
 	const router = useRouter();
 
 	const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +39,7 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			description: initialData?.description || ""
+			price: initialData?.price || undefined
 		}
 	});
 
@@ -45,8 +54,8 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			await axios.patch(`/api/courses/${courseId}`, values);
-			toast.success(`Description updated successfully.`);
+			await axios.patch(`/api/courses/${courseId}`, {price: Number(values.price.toFixed(2))});
+			toast.success(`Pricing updated successfully.`);
 			setIsEditing(false);
 			router.refresh();
 		}
@@ -59,22 +68,21 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 	return (
 		<div className={`mt-6 border bg-slate-100 rounded-md p-4`}>
 			<div className={`font-bold text-xl flex items-center justify-between`}>
-				Description
+				Pricing
 
 				{isEditing ?
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(true)}>
-						<X className={`text-rose-400`}/>
+						<X className={`text-green-500`}/>
 					</Button> :
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(false)}>
-						{initialData.description === `` ? <PlusCircle className={`text-rose-400`}/> : <Pencil className={`text-rose-400`}/>}
+						<Pencil className={`text-green-500`}/>
 					</Button>
 				}
 			</div>
 			{!isEditing &&
-				(initialData.description === `` ?
-					<h1 className={`text-gray-400 italic p-4`}> No description provided. </h1> :
-					<h1 className={`font-custom text-md p-4`}> {initialData.description} </h1>
-				)
+				<p className={`text-lg font-medium mt-2 p-2`}>
+					{formatPrice(initialData.price ? initialData.price : 0)} (USD)
+				</p>
 			}
 
 			{isEditing &&
@@ -85,14 +93,15 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 					>
 						<FormField
 							control={form.control}
-							name={`description`}
+							name={`price`}
 							render={({field}) => (
 								<FormItem>
 									<FormControl>
-										<Textarea
+										<Input
 											className={``}
 											disabled={isSubmitting}
-											placeholder={`Enter your description.`}
+											step={`0.01`}
+											placeholder={`Enter your price (USD).`}
 											{...field}
 										/>
 									</FormControl>
@@ -116,4 +125,4 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 	);
 };
 
-export default DescriptionForm;
+export default PriceForm;
