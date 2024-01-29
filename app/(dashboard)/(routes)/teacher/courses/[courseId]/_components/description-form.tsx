@@ -47,9 +47,7 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 			toast.success(`Description updated successfully.`);
 			setIsEditing(false);
 			router.refresh();
-		}
-
-		catch (error) {
+		} catch (error) {
 			toast.error(`Something went wrong.`);
 		}
 	}
@@ -64,14 +62,15 @@ const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 						<X className={`text-rose-400`}/>
 					</Button> :
 					<Button type={`button`} variant={`ghost`} onClick={() => handleClick(false)}>
-						{initialData.description === `` ? <PlusCircle className={`text-rose-400`}/> : <Pencil className={`text-rose-400`}/>}
+						{initialData.description === `` ? <PlusCircle className={`text-rose-400`}/> :
+							<Pencil className={`text-rose-400`}/>}
 					</Button>
 				}
 			</div>
 			{!isEditing &&
 				(initialData.description === `` ?
-					<h1 className={`text-gray-400 italic p-4`}> No description provided. </h1> :
-					<h1 className={`font-custom text-md p-4`}> {initialData.description} </h1>
+						<h1 className={`text-gray-400 italic p-4`}> No description provided. </h1> :
+						<h1 className={`font-custom text-md p-4`}> {initialData.description} </h1>
 				)
 			}
 
