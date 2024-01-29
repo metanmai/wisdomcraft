@@ -14,13 +14,11 @@ import Image from "next/image";
 import FileUpload from "@/app/(dashboard)/_components/file-upload";
 
 interface ImageFormProps {
-	initialData: Course
+	initialData: Course;
 	courseId: string;
 }
 
-const formSchema = z.object({
-	imageUrl: z.string()
-});
+const formSchema = z.object({imageUrl: z.string()});
 
 const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 	const router = useRouter();
@@ -81,7 +79,6 @@ const ImageForm = ({initialData, courseId}: ImageFormProps) => {
 							src={`${initialData.imageUrl}`}
 							alt={`Course thumbnail`}
 							layout={`fill`}
-							// objectFit={`cover`}
 							className={`rounded-md`}
 						/>
 					</div>

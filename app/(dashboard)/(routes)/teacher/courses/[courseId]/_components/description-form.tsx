@@ -18,9 +18,7 @@ interface DescriptionFormProps {
 	courseId: string;
 }
 
-const formSchema = z.object({
-	description: z.string()
-});
+const formSchema = z.object({description: z.string()});
 
 const DescriptionForm = ({initialData, courseId}: DescriptionFormProps) => {
 	const router = useRouter();

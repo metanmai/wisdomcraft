@@ -21,11 +21,11 @@ interface PriceFormProps {
 
 const formSchema = z.object({
 	price: z
-	.coerce.number()
-	.refine(value => {
-		const decimalCount = (value.toString().split('.')[1] || '').length;
-		return decimalCount <= 2;
-	},
+		.coerce.number()
+		.refine(value => {
+			const decimalCount = (value.toString().split('.')[1] || '').length;
+			return decimalCount <= 2;
+		},
 	{
 		message: "Price can have a maximum of two decimal places."
 	})
