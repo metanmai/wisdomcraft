@@ -13,6 +13,7 @@ const backgroundVariants = cva(
 				green: "bg-green-100",
 				rose: "bg-rose-100",
 				yellow: "bg-yellow-100",
+				blue: "bg-blue-100",
 			},
 
 			size: {
@@ -38,6 +39,7 @@ const iconVariants = cva(
 				green: "text-green-500",
 				rose: "text-rose-500",
 				yellow: "text-yellow-500",
+				blue: "text-blue-500",
 			},
 
 			size: {

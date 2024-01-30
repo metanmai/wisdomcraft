@@ -78,7 +78,7 @@ export const Combobox = ({options, value, courseId}: ComboboxProps) => {
           {value
             ? options.find((option) => option.value === value)?.label
             : "Select option..."}
-          <ChevronsUpDown className="text-rose-500 ml-2 h-4 w-4 shrink-0 opacity-100"/>
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-rose-500 opacity-100"/>
         </Button>
       </PopoverTrigger>
       <PopoverContent

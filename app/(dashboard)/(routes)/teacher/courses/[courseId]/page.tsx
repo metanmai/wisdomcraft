@@ -3,14 +3,13 @@ import {db} from "@/lib/db";
 import {auth} from "@clerk/nextjs";
 import {redirect} from "next/navigation";
 import IconBadge from "@/components/icon-badge";
-import {BadgeDollarSign, LayoutDashboardIcon, LayoutList} from "lucide-react";
+import {BadgeDollarSign, LayoutDashboardIcon, LayoutList, LibraryBig} from "lucide-react";
 import TitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/title-form";
 import DescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/description-form";
 import ImageForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/image-form";
 import CategoryForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/category-form";
 import PriceForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/price-form";
-
-// const categories =
+import ResourcesForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/resources-form";
 
 const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 
@@ -29,6 +28,13 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 	const course = await db.course.findUnique({
 		where: {
 			id: params.courseId,
+		},
+		include: {
+			attachments: {
+				orderBy: {
+					createdAt: "desc"
+				}
+			}
 		}
 	});
 
@@ -77,6 +83,13 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
 							<IconBadge icon={LayoutList} size={`default`} variant={`yellow`}/>
 							<h2 className="text-xl"> Course Chapters </h2>
 						</div>
+					</div>
+					<div className={`border-2 border-black`}>
+						<div className={`flex items-center gap-x-2`}>
+							<IconBadge icon={LibraryBig} size={`default`} variant={`blue`}/>
+							<h2 className="text-xl"> Resources </h2>
+						</div>
+						<ResourcesForm initialData={course} courseId={course.id}/>
 					</div>
 					<div className={`border-2 border-black`}>
 						<div className={`flex items-center gap-x-2`}>
